@@ -1,17 +1,17 @@
 #!/bin/bash
 
 docker kill feedback-app
-docker rm $(docker ps -a -q)
+# docker rm $(docker ps -a -q)
 # docker volume rm $(docker volume ls -q)
-docker rmi feedback-node:volumes
-docker build -t feedback-node:volumes .
+# docker rmi feedback-node:volumes
+# docker build -t feedback-node:volumes .
 
-docker run -d --rm -p 3000:80 --name feedback-app \
+docker run -d --rm -p 3000:8000 -e PORT=8000 --name feedback-app \
   -v feedback:/app/feedback \
-  -v "$(pwd):/app:ro" \
+  -v "$(pwd):/app" \
   -v /app/node_modules \
   -v /app/temp \
-  feedback-node:volumes
+  feedback-node:env
 
 # docker run -d --rm -p 3000:80 --name feedback-app \
 #   -v feedback:/app/feedback \           ceez un named container pentru a salva datele din app/feedback in pc

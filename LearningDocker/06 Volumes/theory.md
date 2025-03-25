@@ -99,3 +99,44 @@ Bind mounts:
 - survives container shutdown/restart
 - can be shared across containers
 - can be re-used for same container across restart
+
+# ARGuments & ENVironment Variables
+
+### ENV:
+
+Available inside of Dockerfile $ in application code.
+Set via ENV in Dockerfile or via `--env` on `docker run`.
+
+Providing a default value:
+```Dockerfile
+ENV PORT=80
+```
+Accesing the `ENV` var:
+```Dockerfile
+EXPOSE $PORT
+```
+Setting the `ENV` var dynamicaly when running a container
+```bash
+docker run -d --rm -p 3000:8000 -e PORT=8000 feedback-node:env
+```
+
+### ARG:
+
+Available inside `Dockerfile`, NOT accesible in CMD or any application code.
+Set on image build(`docker build`) via `--build-arg`.
+
+Providing a default value:
+```Dockerfile
+ARG DEFAULT_PORT=80
+```
+
+Accesing the `ARG`:
+```Dockerfile
+ENV PORT=$DEFAULT_PORT
+```
+
+Setting the `ARG` when building an image:
+```Dockerfile
+docker build --build-arg DEFAULT_PORT=8000 . 
+```
+

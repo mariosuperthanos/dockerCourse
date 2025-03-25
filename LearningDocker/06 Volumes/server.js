@@ -22,7 +22,7 @@ app.get('/exists', (req, res) => {
   res.sendFile(filePath);
 });
 
-console.log("test3131");
+console.log(process.env.PORT);
 
 app.post('/create', async (req, res) => {
   const title = req.body.title;
@@ -45,4 +45,4 @@ app.post('/create', async (req, res) => {
   });
 });
 
-app.listen(80);
+app.listen(process.env.PORT);
